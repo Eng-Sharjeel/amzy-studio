@@ -1,7 +1,7 @@
 # AMZY Studio
 ### Designing Spaces that tell stories
 
-AMZY Studio is a modern architecture practice dedicated to creating refined residential and commercial spaces that blend minimalism, material honesty, and spatial storytelling. Every project is shaped through a careful balance of form, light, and proportion, resulting in environments that feel both functional and emotionally engaging. The studio focuses on delivering timeless architectural experiences where design is not just visual, but deeply connected to how spaces are lived, felt, and experienced.
+AMZY Studio is a modern architecture practice designing refined residential and commercial spaces rooted in minimalism, material honesty, and spatial storytelling. Every project is shaped through a careful balance of form, light, and proportion to create timeless environments that are both functional and emotionally engaging.
 
 ---
 
