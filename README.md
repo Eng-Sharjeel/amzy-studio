@@ -1,31 +1,32 @@
-## AMZY Portfolio
+# AMZY Studio
 
+AMZY Studio is a modern architecture and design portfolio website showcasing residential, commercial, and conceptual architectural projects.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-## Technologies used
-
-This project is built with:
-
+## 🚀 Tech Stack
+- React + TypeScript
 - Vite
-- TypeScript
-- React
-- shadcn-ui
 - Tailwind CSS
+- Modern UI Components
 
+## 📁 Features
+- Responsive architecture portfolio design
+- Project showcase with detailed case studies
+- Smooth modern UI/UX experience
+- Optimized performance for fast loading
+- Ready for deployment on Vercel
+
+## 🏗️ Project Structure
+- `/src` – Main application source code
+- `/public` – Static assets
+- `/components` – Reusable UI components
+- `/pages` – Website sections/pages
+
+## 🌐 Deployment
+This project is optimized for deployment on Vercel.
+
+## 📌 Note
+Large media files are excluded from Git for performance optimization.
+
+---
+
+Built with passion for modern architecture and digital design.
