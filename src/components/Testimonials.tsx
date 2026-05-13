@@ -5,13 +5,13 @@ const testimonials = [
   {
     quote:
       "AMZY Studio completely transformed my office space. Every corner is designed for productivity and elegance — it’s truly a workspace that inspires creativity.",
-    name: "Rizwan Razi",
+    name: "Sharjeel Ahmed",
     project: "Commercial — Corporate Office",
   },
   {
     quote:
       "Working with AMZY was a dream come true. They designed my home with unmatched luxury, attention to detail, and timeless elegance. Every visit feels like a retreat.",
-    name: "Sharjeel Ahmed",
+    name: "Rizwan Razi",
     project: "Residential — Luxury Home",
   },
   {

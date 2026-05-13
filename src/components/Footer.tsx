@@ -96,8 +96,8 @@ const Footer = () => {
             <div className="space-y-3 text-sm text-white/60 font-light">
               <p>Architectural Design</p>
               <p>Interior Design</p>
-              <p>Construction Management</p>
-              <p>Renovation</p>
+              <p>Construction</p>
+              <p>Project Management</p>
             </div>
           </div>
 
