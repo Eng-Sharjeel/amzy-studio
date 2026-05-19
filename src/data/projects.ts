@@ -1,101 +1,171 @@
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
-import project5 from "@/assets/project-5.jpg";
-import project6 from "@/assets/project-6.jpg";
+import noir1 from "@/assets/projects/noir-residence/1.jpg";
+import noir2 from "@/assets/projects/noir-residence/2.jpg";
+import noir3 from "@/assets/projects/noir-residence/3.jpg";
+
+import vertex1 from "@/assets/projects/vertex-workspace/1.jpg";
+import vertex2 from "@/assets/projects/vertex-workspace/2.jpg";
+import vertex3 from "@/assets/projects/vertex-workspace/3.jpg";
+import vertex4 from "@/assets/projects/vertex-workspace/4.jpg";
+import vertex5 from "@/assets/projects/vertex-workspace/5.jpg";
+import vertex6 from "@/assets/projects/vertex-workspace/6.jpg";
+
+import crest1 from "@/assets/projects/urban-crest/1.jpg";
+import crest2 from "@/assets/projects/urban-crest/2.jpg";
+import crest3 from "@/assets/projects/urban-crest/3.jpg";
+
+import oasis1 from "@/assets/projects/urban-oasis/1.jpg";
+import oasis2 from "@/assets/projects/urban-oasis/2.jpg";
+import oasis3 from "@/assets/projects/urban-oasis/3.jpg";
+import oasis4 from "@/assets/projects/urban-oasis/4.jpg";
+import oasis5 from "@/assets/projects/urban-oasis/5.jpg";
+import oasis6 from "@/assets/projects/urban-oasis/6.jpg";
+
+import atelier1 from "@/assets/projects/atelier-plaza/1.jpg";
+import atelier2 from "@/assets/projects/atelier-plaza/2.jpg";
+import atelier3 from "@/assets/projects/atelier-plaza/3.jpg";
+
+import casa1 from "@/assets/projects/casa-fratelli/1.jpg";
+import casa2 from "@/assets/projects/casa-fratelli/2.jpg";
+import casa3 from "@/assets/projects/casa-fratelli/3.jpg";
+import casa4 from "@/assets/projects/casa-fratelli/4.jpg";
+
+/* =========================
+   TYPE (PROFESSIONAL MODEL)
+========================= */
 
 export interface Project {
   id: string;
+
+  // BASIC INFO
   title: string;
   location: string;
-  category: string;
-  image: string;
+  category: "Residential" | "Commercial" | "Interior" | "Mixed Use";
   year: string;
   area: string;
+
+  // STORY CONTENT
   description: string;
   challenge: string;
   solution: string;
-  images: string[];
+
+  // VISUAL SYSTEM
+  coverImage: string;   // HERO + CARDS (important)
+  images: string[];     // FULL GALLERY (slider)
+
+  // OPTIONAL FUTURE EXTENSION
+  tags?: string[];
 }
+
+/* =========================
+   PROJECT DATA
+========================= */
 
 export const projects: Project[] = [
   {
-    id: "The Noir Residence",
+    id: "the-noir-residence",
     title: "The Noir Residence",
     location: "Faisalabad, Pakistan",
     category: "Residential",
-    image: project1,
     year: "2025",
     area: "650 m²",
-    description: "A breathtaking Mediterranean villa that harmonizes modern minimalism with the warmth of coastal living. Floor-to-ceiling glass walls dissolve the boundary between interior and exterior, while the infinity pool creates a seamless connection to the horizon.",
-    challenge: "The client envisioned a home that could serve as both a private retreat and an entertainment space for hosting guests, all while maintaining an intimate, serene atmosphere.",
-    solution: "We designed a flowing open-plan layout with strategically placed courtyards that create pockets of privacy. The material palette of white concrete, natural stone, and warm timber balances grandeur with comfort.",
-    images: [project1],
+
+    description: "Luxury residential project with refined modern minimalism.",
+    challenge: "Balancing openness and privacy.",
+    solution: "Controlled light + layered spatial planning.",
+
+    coverImage: noir1,
+    images: [noir1, noir2, noir3],
+
+    tags: ["Luxury", "Minimal", "Residential"],
   },
+
   {
-    id: "Vertex Workspace",
+    id: "vertex-workspace",
     title: "Vertex Workspace",
     location: "Faisalabad, Pakistan",
     category: "Commercial",
-    image: project2,
     year: "2025",
     area: "12,000 m²",
-    description: "A landmark commercial hub designed to foster collaboration and innovation. The soaring atrium floods the interior with natural light, while the modular floor plates offer maximum flexibility for diverse tenant needs.",
-    challenge: "Creating a commercial space in a competitive market that would attract premium tenants while setting a new standard for workplace design in the region.",
-    solution: "We introduced a biophilic design approach with integrated green walls, operable facades for natural ventilation, and collaborative zones on every floor that encourage spontaneous interaction.",
-    images: [project2],
+
+    description: "High-performance collaborative workspace.",
+    challenge: "Scalable office flexibility.",
+    solution: "Modular + biophilic integration.",
+
+    coverImage: vertex1,
+    images: [vertex1, vertex2, vertex3, vertex4, vertex5, vertex6],
+
+    tags: ["Office", "Modern", "Biophilic"],
   },
+
   {
-    id: "Urban Crest Residence",
+    id: "urban-crest-residence",
     title: "Urban Crest Residence",
     location: "Faisalabad, Pakistan",
     category: "Residential",
-    image: project3,
     year: "2026",
     area: "420 m²",
-    description: "A luxury penthouse that redefines urban living at 800 feet above Manhattan. Every detail was curated to create an atmosphere of refined elegance, from the custom millwork to the panoramic city views framed as living artworks.",
-    challenge: "Transforming a raw concrete shell into an ultra-luxury residence that feels warm and inviting despite its dramatic scale and elevation.",
-    solution: "We layered natural materials — walnut paneling, honed marble, brushed brass — to create intimate zones within the expansive floor plan. Motorized curtain walls and ambient lighting systems adapt the space from day to night.",
-    images: [project3],
+
+    description: "Luxury urban penthouse residence.",
+    challenge: "Light vs privacy balance.",
+    solution: "Courtyard-driven design.",
+
+    coverImage: crest1,
+    images: [crest1, crest2, crest3],
+
+    tags: ["Penthouse", "Urban", "Luxury"],
   },
+
   {
-    id: "Urban Oasis",
+    id: "urban-oasis",
     title: "Urban Oasis",
     location: "Lahore, Pakistan",
     category: "Commercial",
-    image: project4,
     year: "2025",
     area: "8,500 m²",
-    description: "A civic landmark that serves as a beacon for arts and community. The angular facade, clad in weathering steel and glass, shifts in appearance with the Nordic light, creating an ever-changing dialogue with its surroundings.",
-    challenge: "Designing a public building that could house diverse cultural programs — from exhibitions to performances — while creating a strong architectural identity for the neighborhood.",
-    solution: "The building is organized around a central public forum that connects all program areas. The facade's geometry channels daylight deep into the interior, reducing energy consumption while creating dramatic spatial experiences.",
-    images: [project4],
+
+    description: "Cultural-commercial hybrid landmark.",
+    challenge: "Strong identity in dense urban context.",
+    solution: "Dynamic facade system.",
+
+    coverImage: oasis1,
+    images: [oasis1, oasis2, oasis3, oasis4, oasis5, oasis6],
+
+    tags: ["Cultural", "Mixed Use", "Landmark"],
   },
+
   {
-    id: "forest-retreat",
-    title: "Forest Haven Retreat",
-    location: "Kalam, Pakistan",
-    category: "Commercial",
-    image: project5,
-    year: "2024",
-    area: "380 m²",
-    description: "An eco-conscious mountain retreat that sits lightly on the land. The living roof blends the structure into the forest canopy, while generous glazing invites the surrounding nature inside.",
-    challenge: "Building a sustainable home in a sensitive ecological area with extreme weather conditions, while meeting the client's desire for luxury and comfort.",
-    solution: "We used locally sourced timber and stone, passive solar design principles, and a green roof system that manages stormwater naturally. The result is a home that achieves net-zero energy while feeling anything but austere.",
-    images: [project5],
-  },
-  {
-    id: "grand-hotel",
-    title: "The Grand Atelier Hotel",
+    id: "atelier-plaza",
+    title: "Atelier Plaza",
     location: "Islamabad, Pakistan",
-    category: "Hospitality",
-    image: project6,
-    year: "2023",
-    area: "15,000 m²",
-    description: "A five-star boutique hotel that reinterprets Parisian elegance for the contemporary traveler. The lobby's double-height marble atrium sets the tone for an experience of understated luxury throughout.",
-    challenge: "Renovating a historic Haussmann building into a world-class hotel while respecting the architectural heritage and meeting modern hospitality standards.",
-    solution: "We preserved the original facade and principal rooms while inserting a contemporary glass pavilion in the courtyard. The interiors blend period detailing with modern materials, creating a dialogue between past and present.",
-    images: [project6],
+    category: "Commercial",
+    year: "2024",
+    area: "6,200 m²",
+
+    description: "Premium mixed-use development.",
+    challenge: "Luxury feel in commercial density.",
+    solution: "Minimal geometry + premium materials.",
+
+    coverImage: atelier1,
+    images: [atelier1, atelier2, atelier3],
+
+    tags: ["Retail", "Premium", "Minimal"],
+  },
+
+  {
+    id: "casa-fratelli",
+    title: "Casa Fratelli",
+    location: "Faisalabad, Pakistan",
+    category: "Residential",
+    year: "2025",
+    area: "780 m²",
+
+    description: "Twin-brother architectural residence.",
+    challenge: "Dual identity in one structure.",
+    solution: "Symmetry + shared central spine.",
+
+    coverImage: casa1,
+    images: [casa1, casa2, casa3, casa4],
+
+    tags: ["Villa", "Symmetry", "Family Home"],
   },
 ];

@@ -1,26 +1,69 @@
 import { MessageCircle } from "lucide-react";
-import { motion } from "framer-motion";
-
-const WHATSAPP_NUMBER = "923368531533";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20AMZY%20Studio%2C%20I%27m%20interested%20in%20discussing%20a%20project.`;
 
 const WhatsAppButton = () => {
+  const phoneNumber = "923368531533";
+  const message = "Hello! I want to discuss a project.";
+
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    message
+  )}`;
+
   return (
-    <motion.a
-      href={WHATSAPP_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 2, type: "spring", stiffness: 200 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
-      className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-shadow duration-300 hover:shadow-xl"
-      style={{ backgroundColor: "#25D366" }}
-    >
-      <MessageCircle className="text-white" size={26} fill="white" strokeWidth={0} />
-    </motion.a>
+    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+      
+      {/* 💬 SIDE LABEL (DESKTOP ONLY) */}
+      <div className="hidden md:flex items-center">
+        <div className="bg-black/70 text-white text-xs px-3 py-2 rounded-full backdrop-blur border border-white/10 shadow-lg animate-fade-in">
+          Let’s chat 👋
+        </div>
+      </div>
+
+      {/* BUTTON */}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+        className="relative group"
+      >
+        {/* 🌊 FLOATING GLOW RINGS */}
+        <span className="absolute inset-0 rounded-full bg-green-400 opacity-20 blur-xl animate-ping" />
+        <span className="absolute inset-0 rounded-full bg-green-500 opacity-10 blur-2xl scale-125 animate-pulse" />
+
+        {/* MAIN BUTTON */}
+        <div
+          className="
+            relative
+            w-14 h-14 md:w-16 md:h-16
+            flex items-center justify-center
+            rounded-full
+            bg-gradient-to-br from-green-400 to-green-600
+            text-white
+            shadow-[0_15px_40px_rgba(0,0,0,0.35)]
+            backdrop-blur-xl
+            transition-all duration-300
+            hover:scale-110 active:scale-95
+            animate-[float_3s_ease-in-out_infinite]
+          "
+        >
+          <MessageCircle className="w-6 h-6 md:w-7 md:h-7 group-hover:rotate-12 transition" />
+        </div>
+
+        {/* SMALL STATUS DOT */}
+        <span className="absolute top-1 right-1 w-2 h-2 bg-white rounded-full opacity-80" />
+      </a>
+
+      {/* FLOAT ANIMATION */}
+      <style>
+        {`
+          @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+          }
+        `}
+      </style>
+    </div>
   );
 };
 
