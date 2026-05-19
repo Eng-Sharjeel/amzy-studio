@@ -2,6 +2,16 @@ import { Link } from "react-router-dom";
 import { Facebook, Instagram } from "lucide-react";
 
 const Footer = () => {
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <footer className="relative bg-[#1A2B42] overflow-hidden text-white">
 
@@ -16,16 +26,13 @@ const Footer = () => {
         {/* TOP GRID */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-14 mb-16">
 
-          {/* LOGO SECTION (FIXED VISIBILITY) */}
+          {/* LOGO SECTION */}
           <div className="md:col-span-1">
 
             <Link to="/" className="inline-flex items-center mb-5">
               <div className="relative">
-
-                {/* glow */}
                 <div className="absolute inset-0 bg-white/10 blur-2xl rounded-2xl scale-125" />
 
-                {/* logo container */}
                 <div className="relative bg-white px-4 py-2 rounded-sm shadow-lg">
                   <img
                     src="/logo.png"
@@ -33,7 +40,6 @@ const Footer = () => {
                     className="h-12 w-auto object-contain"
                   />
                 </div>
-
               </div>
             </Link>
 
@@ -43,7 +49,6 @@ const Footer = () => {
 
             {/* SOCIAL ICONS */}
             <div className="flex gap-4 mt-6">
-
               <a
                 href="https://www.facebook.com/share/1E9AmyBZtK/"
                 target="_blank"
@@ -61,29 +66,31 @@ const Footer = () => {
               >
                 <Instagram size={18} />
               </a>
-
             </div>
-
           </div>
 
-          {/* NAVIGATION */}
+          {/* NAVIGATION (FIXED) */}
           <div>
             <h4 className="text-xs uppercase tracking-[0.25em] text-white/40 mb-5 font-semibold">
               Navigation
             </h4>
 
             <div className="space-y-3">
-              {["Projects", "About", "Services", "Process", "Contact"].map(
-                (item) => (
-                  <Link
-                    key={item}
-                    to={`/#${item.toLowerCase()}`}
-                    className="block text-sm text-white/60 hover:text-white transition-colors duration-300"
-                  >
-                    {item}
-                  </Link>
-                )
-              )}
+              {[
+                { label: "Projects", id: "projects" },
+                { label: "About", id: "about" },
+                { label: "Services", id: "services" },
+                { label: "Process", id: "process" },
+                { label: "Contact", id: "contact" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="block text-sm text-white/60 hover:text-white transition-colors duration-300 text-left"
+                >
+                  {item.label}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -108,18 +115,14 @@ const Footer = () => {
             </h4>
 
             <div className="space-y-4 text-sm text-white/60 font-light leading-relaxed">
-
               <p>amzystudioofficial@gmail.com</p>
-
               <p>+92 (336) 8531533</p>
-
               <p>
                 Lahore - Sheikhupura - Faisalabad Road,<br />
                 Adjacent to Shifa International Hospital,<br />
                 opposite to Al-Qadir Garden,<br />
                 Faisalabad
               </p>
-
             </div>
           </div>
 
@@ -133,17 +136,11 @@ const Footer = () => {
           </p>
 
           <div className="flex gap-8 text-xs text-white/40">
-            <Link
-              to="/privacy"
-              className="hover:text-white transition-colors duration-300"
-            >
+            <Link to="/privacy" className="hover:text-white transition">
               Privacy Policy
             </Link>
 
-            <Link
-              to="/terms"
-              className="hover:text-white transition-colors duration-300"
-            >
+            <Link to="/terms" className="hover:text-white transition">
               Terms of Service
             </Link>
           </div>

@@ -4,11 +4,11 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { href: "/#projects", label: "Projects" },
-  { href: "/#about", label: "About" },
-  { href: "/#services", label: "Services" },
-  { href: "/#process", label: "Process" },
-  { href: "/#contact", label: "Contact" },
+  { id: "projects", label: "Projects" },
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "process", label: "Process" },
+  { id: "contact", label: "Contact" },
 ];
 
 const Navbar = () => {
@@ -16,39 +16,34 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
-  // scroll detection
+  /* ---------------- SCROLL EFFECT ---------------- */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // close mobile on route change
+  /* ---------------- CLOSE MOBILE ON ROUTE CHANGE ---------------- */
   useEffect(() => {
     setMobileOpen(false);
   }, [location]);
 
-  // lock body scroll when mobile menu open
+  /* ---------------- LOCK BODY SCROLL ---------------- */
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "auto";
   }, [mobileOpen]);
 
-  const handleNavClick = (href: string) => {
+  /* ---------------- SMOOTH SCROLL FUNCTION ---------------- */
+  const handleScroll = (id: string) => {
     setMobileOpen(false);
 
-    const id = href.replace("/#", "");
     const el = document.getElementById(id);
 
     if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 80);
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   };
 
@@ -70,38 +65,41 @@ const Navbar = () => {
               <img
                 src="/logo.png"
                 alt="AMZY Studio"
-                className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-transform hover:scale-105"
               />
             </Link>
 
             {/* DESKTOP MENU */}
             <div className="hidden lg:flex items-center gap-10">
+
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className={`text-xs uppercase tracking-[0.18em] font-medium transition-colors duration-300 ${
-                    scrolled
-                      ? "text-[#1A2B42] hover:text-[#1A2B42]/70"
-                      : "text-white hover:text-white/70"
-                  }`}
+                <button
+                  key={link.id}
+                  onClick={() => handleScroll(link.id)}
+                  className={`
+                    text-xs uppercase tracking-[0.18em] font-medium
+                    transition-colors duration-300
+                    ${
+                      scrolled
+                        ? "text-[#1A2B42] hover:text-[#1A2B42]/70"
+                        : "text-white hover:text-white/70"
+                    }
+                  `}
                 >
                   {link.label}
-                </Link>
+                </button>
               ))}
 
-              {/* CTA BUTTON */}
-              <Link
-                to="/#contact"
-                onClick={() => handleNavClick("/#contact")}
-                className="px-6 py-3 bg-[#1A2B42] text-white text-xs uppercase tracking-[0.15em] font-semibold rounded-sm hover:bg-[#1A2B42]/90 transition-all duration-300 hover:scale-105"
+              {/* CTA */}
+              <button
+                onClick={() => handleScroll("contact")}
+                className="px-6 py-3 bg-[#1A2B42] text-white text-xs uppercase tracking-[0.15em] font-semibold rounded-sm hover:scale-105 transition"
               >
-                Start a Project
-              </Link>
+                Start Project
+              </button>
             </div>
 
-            {/* MOBILE TOGGLE */}
+            {/* MOBILE MENU BUTTON */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className={`lg:hidden z-50 transition-colors duration-300 ${
@@ -126,19 +124,18 @@ const Navbar = () => {
           >
             {navLinks.map((link, i) => (
               <motion.div
-                key={link.href}
+                key={link.id}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
                 className="mb-7"
               >
-                <Link
-                  to={link.href}
-                  onClick={() => handleNavClick(link.href)}
+                <button
+                  onClick={() => handleScroll(link.id)}
                   className="text-[#1A2B42] text-lg uppercase tracking-[0.2em] font-light hover:opacity-60 transition"
                 >
                   {link.label}
-                </Link>
+                </button>
               </motion.div>
             ))}
 
@@ -149,13 +146,12 @@ const Navbar = () => {
               transition={{ delay: 0.4 }}
               className="mt-6"
             >
-              <Link
-                to="/#contact"
-                onClick={() => handleNavClick("/#contact")}
+              <button
+                onClick={() => handleScroll("contact")}
                 className="px-8 py-4 bg-[#1A2B42] text-white text-xs uppercase tracking-[0.15em] font-semibold rounded-sm hover:opacity-90 transition"
               >
-                Start a Project
-              </Link>
+                Start Project
+              </button>
             </motion.div>
           </motion.div>
         )}
