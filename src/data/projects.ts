@@ -154,7 +154,7 @@ export const projects: Project[] = [
   {
     id: "casa-fratelli",
     title: "Casa Fratelli",
-    location: "Faisalabad, Pakistan",
+    location: "Islamabad, Pakistan",
     category: "Residential",
     year: "2025",
     area: "780 m²",
