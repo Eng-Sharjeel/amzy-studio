@@ -13,9 +13,10 @@ const FeaturedProjects = () => {
   });
 
   return (
-    <section 
-    id="projects"
-    className="py-20 md:py-40 bg-background overflow-hidden">
+    <section
+      id="projects"
+      className="py-20 md:py-40 bg-background overflow-hidden"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* HEADER */}
@@ -59,7 +60,7 @@ const FeaturedProjects = () => {
 export default FeaturedProjects;
 
 /* =========================
-   ULTRA PREMIUM PROJECT CARD
+   OPTIMIZED PROJECT CARD
 ========================= */
 
 const ProjectCard = ({ project, index, inView }: any) => {
@@ -70,9 +71,7 @@ const ProjectCard = ({ project, index, inView }: any) => {
   const images = project.images || [];
   const hasMultiple = images.length > 1;
 
-  /* -----------------------------
-     MOBILE DETECTION
-  ----------------------------- */
+  /* MOBILE CHECK */
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
@@ -80,28 +79,24 @@ const ProjectCard = ({ project, index, inView }: any) => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  /* -----------------------------
-     RESET ON MODE CHANGE
-  ----------------------------- */
+  /* RESET SLIDE */
   useEffect(() => {
     setActive(0);
   }, [isMobile, hovered]);
 
-  /* -----------------------------
-     PREMIUM SLIDESHOW ENGINE
-  ----------------------------- */
+  /* SLIDESHOW (OPTIMIZED - NO MOBILE AUTO LOOP) */
   useEffect(() => {
     if (!hasMultiple) return;
 
-    const shouldRun = isMobile || hovered;
-    if (!shouldRun) return;
+    // ONLY run on hover (performance boost)
+    if (!hovered) return;
 
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % images.length);
-    }, isMobile ? 2500 : 1800); // smoother premium pacing
+    }, 2000);
 
     return () => clearInterval(interval);
-  }, [hovered, isMobile, images.length, hasMultiple]);
+  }, [hovered, images.length, hasMultiple]);
 
   return (
     <motion.div
@@ -114,11 +109,10 @@ const ProjectCard = ({ project, index, inView }: any) => {
         className="block"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        onTouchStart={() => setHovered(true)}
       >
 
         {/* CARD */}
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black shadow-[0_30px_80px_rgba(0,0,0,0.35)] group">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black shadow-2xl group">
 
           {/* IMAGE STACK */}
           <div className="relative aspect-[4/3] overflow-hidden">
@@ -128,28 +122,28 @@ const ProjectCard = ({ project, index, inView }: any) => {
                 key={i}
                 src={img}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className={`
                   absolute inset-0 w-full h-full object-cover
-                  transition-all duration-1000 ease-out
-                  ${i === active
-                    ? "opacity-100 scale-100"
-                    : "opacity-0 scale-110"}
+                  transition-opacity duration-700 ease-out
+                  ${i === active ? "opacity-100" : "opacity-0"}
                 `}
               />
             ))}
 
-            {/* LUXURY OVERLAY */}
+            {/* OVERLAY */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
             {/* CATEGORY */}
             <div className="absolute top-4 left-4">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-white bg-white/10 px-3 py-1 rounded-full backdrop-blur">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-white bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
                 {project.category}
               </span>
             </div>
 
             {/* ICON */}
-            <div className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur opacity-0 group-hover:opacity-100 transition">
+            <div className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition">
               <ArrowUpRight size={16} className="text-white" />
             </div>
 
