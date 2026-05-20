@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Hero = () => {
-  const [loadVideo, setLoadVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
@@ -13,49 +14,73 @@ const Hero = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // delay video load (performance boost)
+  // Prevent restart flicker when coming back from routes
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoadVideo(true);
-    }, 800);
+    const video = videoRef.current;
+    if (!video) return;
 
-    return () => clearTimeout(timer);
+    // Ensure it continues smoothly if already loaded
+    if (video.readyState >= 3) {
+      setVideoReady(true);
+      video.play().catch(() => {});
+    }
+
+    const handleLoaded = () => setVideoReady(true);
+
+    video.addEventListener("canplay", handleLoaded);
+
+    return () => {
+      video.removeEventListener("canplay", handleLoaded);
+    };
   }, []);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen overflow-hidden bg-black">
 
-      {/* POSTER IMAGE (INSTANT LOAD) */}
+      {/* =======================
+          1. ALWAYS VISIBLE POSTER
+          (prevents black screen)
+      ======================= */}
       <img
-        src="/hero-poster.mp4"
-        alt="Hero"
-        className="absolute inset-0 w-full h-full object-cover"
+        src="/hero-poster.webp"
+        alt="Hero Poster"
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+          videoReady ? "opacity-0" : "opacity-100"
+        }`}
       />
 
-      {/* VIDEO (LAZY LOAD) */}
-      {loadVideo && (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover opacity-0 animate-fadeIn"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
-      )}
+      {/* =======================
+          2. VIDEO (WebM only)
+      ======================= */}
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+          videoReady ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <source src="/hero-video.webm" type="video/webm" />
+      </video>
 
-      {/* Dark Overlay */}
+      {/* =======================
+          3. DARK OVERLAY
+      ======================= */}
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* HERO CONTENT */}
-      <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+      {/* =======================
+          4. CONTENT
+      ======================= */}
+      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-xs uppercase tracking-[0.4em] text-white/70 mb-8 font-body font-medium"
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="text-xs uppercase tracking-[0.4em] text-white/70 mb-8"
         >
           Architecture & Design Studio
         </motion.p>
@@ -63,8 +88,8 @@ const Hero = () => {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="font-display text-3xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[0.95] tracking-tight mb-8"
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="text-3xl md:text-7xl font-bold text-white leading-[1]"
         >
           Designing Spaces
           <br />
@@ -74,63 +99,35 @@ const Hero = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="font-body text-base md:text-lg text-white/70 max-w-xl mx-auto mb-14 leading-relaxed font-light"
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="text-white/70 mt-8 mb-14 max-w-xl"
         >
           We design modern, functional, and timeless architecture tailored to your vision.
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9 }}
-          className="flex flex-col sm:flex-row gap-5 justify-center"
-        >
+        <div className="flex flex-col sm:flex-row gap-5">
           <button
             onClick={scrollToProjects}
-            className="bg-[#1A2B42] text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-[#1A2B42]/90 transition-all duration-300 rounded-sm hover:shadow-lg"
+            className="bg-[#1A2B42] text-white px-10 py-4 text-xs uppercase tracking-[0.15em] rounded-sm hover:bg-[#1A2B42]/90 transition"
           >
-            View Our Projects
+            View Projects
           </button>
 
           <button
             onClick={scrollToContact}
-            className="border border-white/30 text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/10 transition-all duration-300 rounded-sm"
+            className="border border-white/30 text-white px-10 py-4 text-xs uppercase tracking-[0.15em] rounded-sm hover:bg-white/10 transition"
           >
-            Start Your Project
+            Contact Us
           </button>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2.5 }}
-        >
-          <ArrowDown className="text-white/40" size={20} />
-        </motion.div>
-      </motion.div>
-
-      {/* fade-in animation */}
-      <style>
-        {`
-          .animate-fadeIn {
-            animation: fadeIn 1s ease forwards;
-          }
-
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-        `}
-      </style>
-
+      {/* =======================
+          5. SCROLL ICON
+      ======================= */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/40 animate-bounce">
+        <ArrowDown />
+      </div>
     </section>
   );
 };
