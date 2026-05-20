@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
@@ -60,43 +60,41 @@ const FeaturedProjects = () => {
 export default FeaturedProjects;
 
 /* =========================
-   OPTIMIZED PROJECT CARD
+   PREMIUM OPTIMIZED CARD
 ========================= */
 
 const ProjectCard = ({ project, index, inView }: any) => {
+  const images = project.images || [];
+
   const [active, setActive] = useState(0);
   const [hovered, setHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
-  const images = project.images || [];
-  const hasMultiple = images.length > 1;
+  let t1: any;
+  let t2: any;
 
-  /* MOBILE CHECK */
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const startHover = () => {
+    if (images.length === 0) return;
 
-  /* RESET SLIDE */
-  useEffect(() => {
+    setHovered(true);
+
+    // image 2 quickly
+    t1 = setTimeout(() => {
+      setActive(1);
+    }, 300);
+
+    // image 3 slightly later
+    t2 = setTimeout(() => {
+      if (images[2]) setActive(2);
+    }, 1200);
+  };
+
+  const stopHover = () => {
+    setHovered(false);
     setActive(0);
-  }, [isMobile, hovered]);
 
-  /* SLIDESHOW (OPTIMIZED - NO MOBILE AUTO LOOP) */
-  useEffect(() => {
-    if (!hasMultiple) return;
-
-    // ONLY run on hover (performance boost)
-    if (!hovered) return;
-
-    const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % images.length);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [hovered, images.length, hasMultiple]);
+    clearTimeout(t1);
+    clearTimeout(t2);
+  };
 
   return (
     <motion.div
@@ -107,57 +105,51 @@ const ProjectCard = ({ project, index, inView }: any) => {
       <Link
         to={`/project/${project.id}`}
         className="block"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={startHover}
+        onMouseLeave={stopHover}
       >
 
         {/* CARD */}
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black shadow-2xl group">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black shadow-lg group aspect-[4/3]">
 
-          {/* IMAGE STACK */}
-          <div className="relative aspect-[4/3] overflow-hidden">
+          {/* IMAGE */}
+          <img
+            src={images[active]}
+            alt={project.title}
+            loading="lazy"
+            decoding="async"
+            className={`
+              absolute inset-0 w-full h-full object-cover
+              transition-all duration-500 ease-out
+              ${hovered ? "scale-105" : "scale-100"}
+            `}
+          />
 
-            {images.map((img: string, i: number) => (
-              <img
-                key={i}
-                src={img}
-                alt={project.title}
-                loading="lazy"
-                decoding="async"
-                className={`
-                  absolute inset-0 w-full h-full object-cover
-                  transition-opacity duration-700 ease-out
-                  ${i === active ? "opacity-100" : "opacity-0"}
-                `}
-              />
-            ))}
+          {/* OVERLAY */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
-            {/* OVERLAY */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-
-            {/* CATEGORY */}
-            <div className="absolute top-4 left-4">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-white bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
-                {project.category}
-              </span>
-            </div>
-
-            {/* ICON */}
-            <div className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition">
-              <ArrowUpRight size={16} className="text-white" />
-            </div>
-
-            {/* TEXT */}
-            <div className="absolute bottom-0 p-4 sm:p-5 text-white">
-              <h3 className="text-lg sm:text-xl font-semibold tracking-wide">
-                {project.title}
-              </h3>
-              <p className="text-xs sm:text-sm text-white/70">
-                {project.location}
-              </p>
-            </div>
-
+          {/* CATEGORY */}
+          <div className="absolute top-4 left-4 z-10">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-white bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
+              {project.category}
+            </span>
           </div>
+
+          {/* ICON */}
+          <div className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition">
+            <ArrowUpRight size={16} className="text-white" />
+          </div>
+
+          {/* TEXT */}
+          <div className="absolute bottom-0 p-4 sm:p-5 text-white z-10">
+            <h3 className="text-lg sm:text-xl font-semibold tracking-wide">
+              {project.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-white/70">
+              {project.location}
+            </p>
+          </div>
+
         </div>
 
       </Link>
