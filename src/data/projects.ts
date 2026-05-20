@@ -38,11 +38,11 @@ export const projects: Project[] = [
     challenge: "Balancing openness and privacy.",
     solution: "Controlled light + layered spatial planning.",
 
-    coverImage: "/projects/noir-residence/1.jpg",
+    coverImage: "/projects/noir-residence/1.webp",
     images: [
-      "/projects/noir-residence/1.jpg",
-      "/projects/noir-residence/2.jpg",
-      "/projects/noir-residence/3.jpg",
+      "/projects/noir-residence/1.webp",
+      "/projects/noir-residence/2.webp",
+      "/projects/noir-residence/3.webp",
     ],
 
     tags: ["Luxury", "Minimal", "Residential"],
@@ -60,14 +60,14 @@ export const projects: Project[] = [
     challenge: "Scalable office flexibility.",
     solution: "Modular + biophilic integration.",
 
-    coverImage: "/projects/vertex-workspace/1.jpg",
+    coverImage: "/projects/vertex-workspace/1.webp",
     images: [
-      "/projects/vertex-workspace/1.jpg",
-      "/projects/vertex-workspace/2.jpg",
-      "/projects/vertex-workspace/3.jpg",
-      "/projects/vertex-workspace/4.jpg",
-      "/projects/vertex-workspace/5.jpg",
-      "/projects/vertex-workspace/6.jpg",
+      "/projects/vertex-workspace/1.webp",
+      "/projects/vertex-workspace/2.webp",
+      "/projects/vertex-workspace/3.webp",
+      "/projects/vertex-workspace/4.webp",
+      "/projects/vertex-workspace/5.webp",
+      "/projects/vertex-workspace/6.webp",
     ],
 
     tags: ["Office", "Modern", "Biophilic"],
@@ -85,11 +85,11 @@ export const projects: Project[] = [
     challenge: "Low Light and Compact Area",
     solution: "Double Height and Large Opening Driven Design",
 
-    coverImage: "/projects/urban-crest/1.jpg",
+    coverImage: "/projects/urban-crest/1.webp",
     images: [
-      "/projects/urban-crest/1.jpg",
-      "/projects/urban-crest/2.jpg",
-      "/projects/urban-crest/3.jpg",
+      "/projects/urban-crest/1.webp",
+      "/projects/urban-crest/2.webp",
+      "/projects/urban-crest/3.webp",
     ],
 
     tags: ["Penthouse", "Urban", "Luxury"],
@@ -107,13 +107,13 @@ export const projects: Project[] = [
     challenge: "Strong identity in dense urban context.",
     solution: "Dynamic Sitting Spaces and Water Bodies",
 
-    coverImage: "/projects/urban-oasis/1.jpg",
+    coverImage: "/projects/urban-oasis/1.webp",
     images: [
-      "/projects/urban-oasis/1.jpg",
-      "/projects/urban-oasis/2.jpg",
-      "/projects/urban-oasis/3.jpg",
-      "/projects/urban-oasis/4.jpg",
-      "/projects/urban-oasis/5.jpg",
+      "/projects/urban-oasis/1.webp",
+      "/projects/urban-oasis/2.webp",
+      "/projects/urban-oasis/3.webp",
+      "/projects/urban-oasis/4.webp",
+      "/projects/urban-oasis/5.webp",
     ],
 
     tags: ["Cultural", "Urban", "Landmark"],
@@ -131,11 +131,11 @@ export const projects: Project[] = [
     challenge: "Luxury feel in commercial density.",
     solution: "Minimal geometry + premium materials.",
 
-    coverImage: "/projects/atelier-plaza/1.jpg",
+    coverImage: "/projects/atelier-plaza/1.webp",
     images: [
-      "/projects/atelier-plaza/1.jpg",
-      "/projects/atelier-plaza/2.jpg",
-      "/projects/atelier-plaza/3.jpg",
+      "/projects/atelier-plaza/1.webp",
+      "/projects/atelier-plaza/2.webp",
+      "/projects/atelier-plaza/3.webp",
     ],
 
     tags: ["Retail", "Premium", "Minimal"],
@@ -153,12 +153,12 @@ export const projects: Project[] = [
     challenge: "Dual identity in one structure.",
     solution: "Symmetry + shared central spine.",
 
-    coverImage: "/projects/casa-fratelli/1.jpg",
+    coverImage: "/projects/casa-fratelli/1.webp",
     images: [
-      "/projects/casa-fratelli/1.jpg",
-      "/projects/casa-fratelli/2.jpg",
-      "/projects/casa-fratelli/3.jpg",
-      "/projects/casa-fratelli/4.jpg",
+      "/projects/casa-fratelli/1.webp",
+      "/projects/casa-fratelli/2.webp",
+      "/projects/casa-fratelli/3.webp",
+      "/projects/casa-fratelli/4.webp",
     ],
 
     tags: ["Villa", "Symmetry", "Family Home"],

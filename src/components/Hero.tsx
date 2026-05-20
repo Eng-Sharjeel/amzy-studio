@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [loadVideo, setLoadVideo] = useState(false);
+
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -10,25 +13,43 @@ const Hero = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // delay video load (performance boost)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadVideo(true);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
 
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
+      {/* POSTER IMAGE (INSTANT LOAD) */}
+      <img
+        src="/hero-poster.mp4"
+        alt="Hero"
         className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/hero-video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      />
+
+      {/* VIDEO (LAZY LOAD) */}
+      {loadVideo && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover opacity-0 animate-fadeIn"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+      )}
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* Hero Content */}
+      {/* HERO CONTENT */}
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -47,7 +68,7 @@ const Hero = () => {
         >
           Designing Spaces
           <br />
-          <span className="italic font-normal"> That Tell Stories</span>
+          <span className="italic font-normal">That Tell Stories</span>
         </motion.h1>
 
         <motion.p
@@ -67,13 +88,14 @@ const Hero = () => {
         >
           <button
             onClick={scrollToProjects}
-            className="bg-[#1A2B42] text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-[#1A2B42]/90 transition-all duration-300 font-body rounded-sm hover:shadow-lg"
+            className="bg-[#1A2B42] text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-[#1A2B42]/90 transition-all duration-300 rounded-sm hover:shadow-lg"
           >
             View Our Projects
           </button>
+
           <button
             onClick={scrollToContact}
-            className="border border-white/30 text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/10 transition-all duration-300 font-body rounded-sm"
+            className="border border-white/30 text-white px-10 py-4 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-white/10 transition-all duration-300 rounded-sm"
           >
             Start Your Project
           </button>
@@ -89,11 +111,26 @@ const Hero = () => {
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+          transition={{ repeat: Infinity, duration: 2.5 }}
         >
           <ArrowDown className="text-white/40" size={20} />
         </motion.div>
       </motion.div>
+
+      {/* fade-in animation */}
+      <style>
+        {`
+          .animate-fadeIn {
+            animation: fadeIn 1s ease forwards;
+          }
+
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+        `}
+      </style>
+
     </section>
   );
 };
